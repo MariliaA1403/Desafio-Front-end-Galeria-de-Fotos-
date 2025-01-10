@@ -38,11 +38,10 @@
         const filmesContainer = document.getElementById('filmesContainer');
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
-        let allFilmes = []; // Para armazenar todos os filmes da Pixar
+        let allFilmes = []; 
 
-        // Função para buscar filmes da Pixar da API
         async function fetchFilmesPixar() {
-            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=3`; // Pixar tem ID 3
+            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=3`; 
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
@@ -59,14 +58,14 @@
             }
         }
 
-        // Função para exibir os filmes na página
+       
         function displayFilmes(filmes) {
             filmesContainer.innerHTML = ''; 
             filmes.forEach(filme => {
                 const filmeElement = document.createElement('div');
                 filmeElement.classList.add('filmess');
 
-                // Verifica se o filme tem uma imagem
+               
                 const posterUrl = filme.poster_path
                     ? IMAGE_BASE_URL + filme.poster_path
                     : 'https://via.placeholder.com/500x750?text=Sem+Imagem'; 
@@ -81,7 +80,7 @@
             });
         }
 
-        // Função de busca de filmes com base na pesquisa do usuário
+       
         function searchFilmes(query) {
             if (query.trim() !== "") {
                 const filteredFilmes = allFilmes.filter(filme =>
@@ -93,19 +92,19 @@
                     filmesContainer.innerHTML = "<p>Nenhuma foto encontrada.</p>";
                 }
             } else {
-                // Se a pesquisa estiver vazia, exibe todos os filmes novamente
+               
                 displayFilmes(allFilmes);
             }
         }
 
-        // Evento de submissão do formulário de pesquisa
+      
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();  
             const query = searchInput.value;
             searchFilmes(query);
         });
 
-        // Chama a função para carregar os filmes da Pixar ao inicializar a página
+      
         fetchFilmesPixar();
     </script>
 
