@@ -23,7 +23,7 @@
     
     <main>
         <div class="filmes" id="filmesContainer">
-            <!-- Filmes serão inseridos aqui -->
+          
         </div>
     </main>
 
@@ -48,8 +48,8 @@
                 const data = await response.json();
                 
                 if (data.results && data.results.length > 0) {
-                    allFilmes = data.results; // Armazena todos os filmes da Pixar
-                    displayFilmes(allFilmes); // Exibe todos os filmes inicialmente
+                    allFilmes = data.results; 
+                    displayFilmes(allFilmes); 
                 } else {
                     filmesContainer.innerHTML = "<p>Nenhum filme encontrado.</p>";
                 }
@@ -61,7 +61,7 @@
 
         // Função para exibir os filmes na página
         function displayFilmes(filmes) {
-            filmesContainer.innerHTML = ''; // Limpa o conteúdo atual
+            filmesContainer.innerHTML = ''; 
             filmes.forEach(filme => {
                 const filmeElement = document.createElement('div');
                 filmeElement.classList.add('filmess');
@@ -69,7 +69,7 @@
                 // Verifica se o filme tem uma imagem
                 const posterUrl = filme.poster_path
                     ? IMAGE_BASE_URL + filme.poster_path
-                    : 'https://via.placeholder.com/500x750?text=Sem+Imagem'; // Imagem padrão se não houver imagem
+                    : 'https://via.placeholder.com/500x750?text=Sem+Imagem'; 
 
                 filmeElement.innerHTML = `
                     <a href="#">
@@ -100,7 +100,7 @@
 
         // Evento de submissão do formulário de pesquisa
         searchForm.addEventListener('submit', function(event) {
-            event.preventDefault();  // Previne o comportamento padrão do formulário
+            event.preventDefault();  
             const query = searchInput.value;
             searchFilmes(query);
         });
