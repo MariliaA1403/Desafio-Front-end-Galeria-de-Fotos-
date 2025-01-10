@@ -37,18 +37,18 @@
         const filmesContainer = document.getElementById('filmesContainer');
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
-        let filmesMarvel = []; // Armazenar os filmes da Marvel
+        let filmesMarvel = []; 
 
-        // Função para buscar filmes da Marvel da API
+       
         async function fetchFilmesMarvel() {
-            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=420`; // Marvel tem ID 420
+            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=420`; 
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
                 if (data.results && data.results.length > 0) {
-                    filmesMarvel = data.results; // Armazenando os filmes da Marvel
-                    displayFilmes(filmesMarvel); // Exibe os filmes da Marvel inicialmente
+                    filmesMarvel = data.results; 
+                    displayFilmes(filmesMarvel); 
                 } else {
                     filmesContainer.innerHTML = "<p>Nenhum filme encontrado.</p>";
                 }
@@ -58,7 +58,7 @@
             }
         }
 
-        // Função para exibir os filmes na página
+       
         function displayFilmes(filmes) {
             filmesContainer.innerHTML = '';  
             if (filmes.length === 0) {
@@ -78,26 +78,26 @@
             });
         }
 
-        // Função de busca de filmes com base na pesquisa do usuário
+      
         function searchFilmes(query) {
             if (query.trim() !== "") {
-                // Filtra os filmes da Marvel com base na pesquisa
+          
                 const resultados = filmesMarvel.filter(filme => filme.title.toLowerCase().includes(query.toLowerCase()));
-                displayFilmes(resultados); // Exibe os filmes filtrados
+                displayFilmes(resultados);
             } else {
-                // Se a pesquisa estiver vazia, exibe todos os filmes
+               
                 displayFilmes(filmesMarvel);
             }
         }
 
-        // Evento de submissão do formulário de pesquisa
+  
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();  
             const query = searchInput.value;
             searchFilmes(query); 
         });
 
-        // Chama a função para carregar os filmes da Marvel ao inicializar a página
+       
         fetchFilmesMarvel();
     </script>
 
