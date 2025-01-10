@@ -23,7 +23,7 @@
     
     <main>
         <div class="filmes" id="filmesContainer">
-            <!-- Filmes serão inseridos aqui -->
+           
         </div>
     </main>
 
@@ -60,7 +60,7 @@
 
         // Função para exibir os filmes na página
         function displayFilmes(filmes) {
-            filmesContainer.innerHTML = '';  // Limpa o conteúdo atual
+            filmesContainer.innerHTML = '';  
             if (filmes.length === 0) {
                 filmesContainer.innerHTML = "<p>Nenhuma foto encontrada.</p>";
                 return;
@@ -92,9 +92,9 @@
 
         // Evento de submissão do formulário de pesquisa
         searchForm.addEventListener('submit', function(event) {
-            event.preventDefault();  // Previne o comportamento padrão do formulário
+            event.preventDefault();  
             const query = searchInput.value;
-            searchFilmes(query); // Chama a função de busca ao submeter
+            searchFilmes(query); 
         });
 
         // Chama a função para carregar os filmes da Marvel ao inicializar a página
