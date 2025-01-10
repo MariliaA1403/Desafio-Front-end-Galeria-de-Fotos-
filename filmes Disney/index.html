@@ -23,7 +23,7 @@
     
     <main>
         <div class="filmes" id="filmesContainer">
-            <!-- Filmes serão inseridos aqui -->
+           
         </div>
     </main>
 
@@ -38,15 +38,15 @@
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
 
-        // Função para buscar filmes da Disney da API
+   
         async function fetchFilmesDisney() {
-            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=2`; // Disney tem ID 2
+            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=2`; 
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
                 if (data.results && data.results.length > 0) {
-                    displayFilmes(data.results); // Exibe os filmes sem filtro agora
+                    displayFilmes(data.results); 
                 } else {
                     filmesContainer.innerHTML = "<p>Nenhum filme encontrado.</p>";
                 }
@@ -56,9 +56,9 @@
             }
         }
 
-        // Função para exibir os filmes na página
+       
         function displayFilmes(filmes) {
-            filmesContainer.innerHTML = '';  // Limpa o conteúdo atual
+            filmesContainer.innerHTML = '';  
             if (filmes.length === 0) {
                 filmesContainer.innerHTML = "<p>Nenhuma foto encontrada.</p>";
                 return;
@@ -76,16 +76,15 @@
             });
         }
 
-        // Função de busca de filmes com base na pesquisa do usuário
         async function searchFilmes(query) {
             if (query.trim() !== "") {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&with_companies=2`; // Disney
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&with_companies=2`; 
                 try {
                     const response = await fetch(searchUrl);
                     const data = await response.json();
                     
                     if (data.results) {
-                        displayFilmes(data.results); // Exibe os filmes sem filtro
+                        displayFilmes(data.results); 
                     } else {
                         filmesContainer.innerHTML = "<p>Nenhum filme encontrado para a pesquisa.</p>";
                     }
@@ -95,14 +94,14 @@
             }
         }
 
-        // Evento de submissão do formulário de pesquisa
+     
         searchForm.addEventListener('submit', function(event) {
-            event.preventDefault();  // Previne o comportamento padrão do formulário
+            event.preventDefault(); 
             const query = searchInput.value;
             searchFilmes(query);
         });
 
-        // Chama a função para carregar os filmes da Disney ao inicializar a página
+      
         fetchFilmesDisney();
     </script>
 
