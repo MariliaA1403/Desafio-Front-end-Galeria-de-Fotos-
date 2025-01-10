@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Filmes Marvel</title>
+</head>
+
+<body>
+  
+    <header>
+        <img src="./img/intro marvel.png" alt="Logo Marvel">
+    </header>
+
+    <div class="search-container">
+        <form id="searchForm">
+            <input type="text" class="search-input" id="searchInput" placeholder="Digite sua pesquisa...">
+            <button type="submit" class="search-button"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+    
+    <main>
+        <div class="filmes" id="filmesContainer">
+            <!-- Filmes serão inseridos aqui -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Galeria de Filmes. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const API_KEY = "e573eb24f6fa25ea81bb6ab9c31e4d0b";
+        const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+        const filmesContainer = document.getElementById('filmesContainer');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        let filmesMarvel = []; // Armazenar os filmes da Marvel
+
+        // Função para buscar filmes da Marvel da API
+        async function fetchFilmesMarvel() {
+            const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_companies=420`; // Marvel tem ID 420
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.results && data.results.length > 0) {
+                    filmesMarvel = data.results; // Armazenando os filmes da Marvel
+                    displayFilmes(filmesMarvel); // Exibe os filmes da Marvel inicialmente
+                } else {
+                    filmesContainer.innerHTML = "<p>Nenhum filme encontrado.</p>";
+                }
+            } catch (error) {
+                console.error("Erro ao buscar filmes:", error);
+                filmesContainer.innerHTML = "<p>Erro ao carregar filmes.</p>";
+            }
+        }
+
+        // Função para exibir os filmes na página
+        function displayFilmes(filmes) {
+            filmesContainer.innerHTML = '';  // Limpa o conteúdo atual
+            if (filmes.length === 0) {
+                filmesContainer.innerHTML = "<p>Nenhuma foto encontrada.</p>";
+                return;
+            }
+            filmes.forEach(filme => {
+                const filmeElement = document.createElement('div');
+                filmeElement.classList.add('filmess');
+                filmeElement.innerHTML = `  
+                    <a href="#">
+                        <img src="${IMAGE_BASE_URL + filme.poster_path}" alt="${filme.title}">
+                        <p class="nome">${filme.title}</p>
+                    </a>
+                `;
+                filmesContainer.appendChild(filmeElement);
+            });
+        }
+
+        // Função de busca de filmes com base na pesquisa do usuário
+        function searchFilmes(query) {
+            if (query.trim() !== "") {
+                // Filtra os filmes da Marvel com base na pesquisa
+                const resultados = filmesMarvel.filter(filme => filme.title.toLowerCase().includes(query.toLowerCase()));
+                displayFilmes(resultados); // Exibe os filmes filtrados
+            } else {
+                // Se a pesquisa estiver vazia, exibe todos os filmes
+                displayFilmes(filmesMarvel);
+            }
+        }
+
+        // Evento de submissão do formulário de pesquisa
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();  // Previne o comportamento padrão do formulário
+            const query = searchInput.value;
+            searchFilmes(query); // Chama a função de busca ao submeter
+        });
+
+        // Chama a função para carregar os filmes da Marvel ao inicializar a página
+        fetchFilmesMarvel();
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
